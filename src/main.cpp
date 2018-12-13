@@ -14,22 +14,35 @@ int zustandEntscheidungshelfer = UNFERTIG;
 
 int BlinkRhytmus = 50;
 
+int ledPins[] = {13,12,11};
+int anzahlDerEntscheidungen = sizeof(ledPins) / sizeof(ledPins[0]);
+
 void setup() 
 {
-  pinMode(ROTER_LED_PIN, OUTPUT);
-  pinMode(BLAUER_LED_PIN, OUTPUT); 
+  for (int i =0; i < anzahlDerEntscheidungen; i++){
+    //int aktuellerPin = ledPins[i];
+    //pinMode(aktuellerPin, OUTPUT);
+    pinMode(ledPins[i], OUTPUT);
+  } 
 }
 
 void loop() {
   if (zustandEntscheidungshelfer==UNFERTIG){
     for (int x = 0; BlinkRhytmus<MAX_BLINK_RYTHMUS; x++){
       BlinkRhytmus = x * x * BLINK_FUNKTION_A + BLINK_STARTWERT;
-      digitalWrite(ROTER_LED_PIN, HIGH);
-      delay(BlinkRhytmus);
-      digitalWrite(ROTER_LED_PIN,LOW);
-      digitalWrite(BLAUER_LED_PIN, HIGH);
-      delay(BlinkRhytmus);
-      digitalWrite(BLAUER_LED_PIN, LOW);
+      for (int i = 0; i < anzahlDerEntscheidungen; i++){
+        digitalWrite(ledPins[i], HIGH);
+        delay(BlinkRhytmus);
+        digitalWrite(ledPins[i], LOW);
+      }
+
+      // In Version 1.0 sah das noch so aus:
+      // digitalWrite(ROTER_LED_PIN, HIGH);
+      // delay(BlinkRhytmus);
+      // digitalWrite(ROTER_LED_PIN,LOW);
+      // digitalWrite(BLAUER_LED_PIN, HIGH);
+      // delay(BlinkRhytmus);
+      // digitalWrite(BLAUER_LED_PIN, LOW);
       BlinkRhytmus += BLINK_RHYTMUS_Schritweite;
     }
   
@@ -40,12 +53,16 @@ void loop() {
         ergebnis *= -1;
     }
 
-    if (ergebnis %2 == 0){
-      digitalWrite(ROTER_LED_PIN, HIGH);
-    }
-    else{
-      digitalWrite(BLAUER_LED_PIN, HIGH);
-    }
+    int indexImArray = ergebnis % anzahlDerEntscheidungen;
+    digitalWrite(ledPins[indexImArray], HIGH);
+
+    // In Version 1.0 sah das noch so aus:
+    // if (ergebnis %2 == 0){
+    //   digitalWrite(ROTER_LED_PIN, HIGH);
+    // }
+    // else{
+    //   digitalWrite(BLAUER_LED_PIN, HIGH);
+    // }
 
     zustandEntscheidungshelfer=FERTIG;
   }
