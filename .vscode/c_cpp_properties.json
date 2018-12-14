@@ -78,7 +78,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=30602",
+                "PLATFORMIO=30603",
                 "ARDUINO_AVR_UNO",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",
@@ -89,7 +89,7 @@
             "intelliSenseMode": "clang-x64",
             "cStandard": "c11",
             "cppStandard": "c++11",
-            "compilerPath": "C:/Users/user/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe  -fno-fat-lto-objects -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega328p"
+            "compilerPath": "C:/Users/user/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe -mmcu=atmega328p"
         }
     ],
     "version": 4
